@@ -1,0 +1,137 @@
+input[type=text] {
+    width: 150px;
+	height: 28px;
+}
+input[type=number] {
+	width: 150px;
+	height: 28px;
+}
+.btnbke {
+  color: #900;
+  background: #FFFFFF;
+  font-weight: bold;
+  border: 1px solid #900;
+  border-radius: 25px;
+  max-width: 200px;
+}
+ 
+.btnbke:hover {
+  color: #FFF;
+  background: #D0C801;
+}
+
+.btnbke:disabled {
+  color: #FFF;
+  background: #A5A5A5;
+}
+
+.seleventbke
+{
+	color: #FFF;
+	width: 50%;
+}
+.compacttable  .compactth .compacttd .compacttr
+{
+	height: 100px;
+	cellpadding: 0;
+	cellspacing: 0;
+	border: 2px;
+}
+.boektable {
+    width: 100%;
+	max-width: 100%;
+	margin-bottom: 1.5em;
+	border-collapse: collapse;
+	border-spacing: 0;
+	background-color: transparent;
+	font-size: 1em;
+	border: solid 1px #ddd;
+}
+.compacttable
+{
+	width: 100%;
+	max-width: 100%;
+	margin-bottom: 1.5em;
+	border-collapse: collapse;
+	border-spacing: 0;
+	background-color: transparent;
+	font-size: 0.7em;
+	border: 0;
+}
+.compacttr {
+	margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+	height: 5px;
+    vertical-align: baseline;
+    background: transparent;
+}
+.compactth, .compactthright
+{
+	background-color: #CD5C5C;
+}
+.compactthright {
+    text-align: right;
+}
+.compacttd, .compacttdright
+{
+	margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+	height: 5px;
+    vertical-align: baseline;
+    background: #D8B5B6;
+}
+.compacttdright {
+    text-align: right;
+}
+
+.compacttdeven, .compacttdevenright {
+	margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+	height: 5px;
+    vertical-align: baseline;
+    background: #D8B5B6;
+}
+.compacttdevenright {
+    text-align: right;
+}
+.compacttdodd, .compacttdoddright {
+	margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+	height: 5px;
+    vertical-align: baseline;
+    background: #CD5C5C;
+}
+.compacttdoddright {
+    text-align: right;
+}
+.boektable {
+    width: 100%;
+	max-width: 100%;
+	margin-bottom: 1.5em;
+	border-collapse: collapse;
+	border-spacing: 0;
+	background-color: transparent;
+	font-size: 1em;
+	border: solid 1px #ddd;
+}
+.boekth
+{
+	background-color: #CD5C5C;
+	text-align: left;
+}
+.boektr {
+	margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    vertical-align: baseline;
+    background: transparent;
+}

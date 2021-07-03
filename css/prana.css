@@ -1,0 +1,198 @@
+body 
+{
+	font-size: 18px;
+}
+h1
+{ 
+	font-size: 24px;
+	font-weight: bold;
+}
+}
+h2
+{ 
+	font-size: 22px;
+}
+h3
+{ 
+	font-size: 20px;
+}
+input[type="text"]
+{
+    font-size:18px;
+}
+input[type="number"]
+{
+    font-size:18px;
+}
+input[type="file"]
+{
+    font-size:18px;
+}
+textarea[type="text"]
+{
+    font-size:18px;
+}
+.hasPopover
+{
+	white-space: pre-line;
+}
+.prana-menu
+{
+	background-color:  #e31923;
+	padding: 10px;
+}
+.prana-display
+{
+	background-color: #fdcb52;
+	padding: 10px;
+}
+.prana-box
+{
+	background-color: #ff8c00;
+	border-radius: 1em
+}
+.pbtnok 
+{
+	background:linear-gradient(to bottom, #e31923 5%, #e31616 100%);
+	background-color:#e31923;
+	border-radius:28px;
+	border:4px solid #0c0a0d;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:16px;
+	padding:12px 48px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #080a08;
+}
+.pbtnok:hover {
+	background:linear-gradient(to bottom, #e31616 5%, #e31923 100%);
+	background-color:#e31616;
+}
+pbtnok:active {
+	position:relative;
+	top:1px;
+}
+
+
+.prana-btnsmall {
+  color: #2db762;
+  background: #FFFFFF;
+  font-weight: bold;
+  border: 1px solid #2db762;
+  height: 25px;
+  border-radius: 25px;
+  max-width: 100px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+/*
+.prana-btnsmall.box
+{
+	margin-top: 18px;
+}
+*/
+.prana-btnsmall:hover {
+  color: #FFF;
+  background: #D0C801;
+}
+/*
+	header of column is a button
+*/
+.pbtn-header {
+	background-color: transparent;
+	border: none;
+	color: black;
+	height: 10px;
+	padding-left: 0px;
+	text-align: left;
+	text-decoration: none;
+	font-size: 16px;
+	cursor: pointer;
+}
+.pbtn-header:hover {
+  background-color: #fdcb52;
+  color: red;
+}
+
+.compact-table
+{
+	width: 100%;
+	max-width: 100%;
+	margin-bottom: 1.5em;
+	border-collapse: collapse;
+	border-spacing: 0;
+	background-color: transparent;
+	font-size: 1em;
+	border: 0;
+}
+.compact-table tr
+{
+	height: 10px;
+}
+/*
+ buttons for menu
+*/
+.pbtnmenu {
+	box-shadow: 0px 10px 14px -7px #276873;
+	background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+	background-color:#599bb3;
+	border-radius:12px;
+	border:3px solid #29668f;
+	display:inline-block;
+	cursor:pointer;
+	color:#0a0404;
+	font-family:Arial;
+	font-size:20px;
+	font-weight:bold;
+	padding:13px 21px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #3d768a;
+  }
+   
+  .pbtnmenu:hover {
+	background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+	background-color:#408c99;
+  }
+  
+  .pbtnmenu:disabled {
+	color: #FFF;
+	background: #A5A5A5;
+  }
+.isa_info, .isa_success, .isa_warning, .isa_error {
+    margin: 10px 0px;
+    padding:12px;
+ 
+}
+.isa_info {
+    color: #00529B;
+    background-color: #BDE5F8;
+}
+.isa_success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+}
+.isa_warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+}
+.isa_error {
+    color: #D8000C;
+    background-color: #FFD2D2;
+}
+/* hide arrows in number input */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
