@@ -1,0 +1,107 @@
+<h1>simpelboek</h1>
+<h2>opstarten plugin</h2>
+De plugin kan worden gestart door in een artikel [simpelboek single="tekst"] te plaatsen.<br>
+In plaats van tekst de code van de boekhouding opgeven.<br>
+[simpelboek] geeft toegang tot alle boekhoudingen.
+<h2>databank</h2>
+In de databank van de website worden de volgende tabellen aangemaakt:
+<table>
+<tr><td>simpelboek_boekhoudingen</td><td>lijst met boekhoudingen</td></tr>
+<tr><td>simpelboek_code_rekening</td><td>lijst met boekhoudcodes</td></tr>
+<tr><td>simpelboek_code_balans</td><td>balansposten</td></tr>
+<tr><td>simpelboek_code_begroting</td><td>begroting</td></tr>
+<tr><td>simpelboek_code_boeking</td><td>boekingen</td></tr>
+</table>
+<h2>functies</h2>
+simpelboek toont een menu met de volgende functies;
+<h3>boekhoudingen</h3>
+Dit menu is alleen zichtbaar, wanneer je toegamg hebt tot alle boekhoudingen. (zie: opstarten)
+Hiermee kunnen boekhoudingen worden aangemaakt of gewijzigd.
+<p>Er wordt een overzicht getoond van de bestaande boekhoudingen</p>
+<p>Klik op "nieuw" voor het aanmaken van een nieuwe boekhouding</p>
+<p>Er wordt gevraagd naar een code en een titel van de boekhouding.
+De code wordt gebruikt voor het opstarten van een enkele boekhouding. De titel wordt gebruikt bij overzichten e.d.</p>
+<p>Verder wordt om het boekjaar gevraagd waarmee de boekhouding moet beginnen</p>
+<p>Bij het aanmaken van een nieuwe boekhouding wordt een voorbeeld rekeningschema aangemaakt. Deze kan aangevuld of gewijzigd worden via het menu rekeningen.</p>
+<h3>open</h3>
+Hier wordt een boekhouding mee geopend. Kies een boekhouding.
+<h3>afsluiten</h3>
+Sluit de huidige boekhouding af.
+<h3>beheer rekeningen</h3>
+Hiermee kunnen de grootboekrekeningen worden beheerd.
+<p>Wanneer er nog geen grootboekrekeningen zijn bestaat de mogelijkheid een voorbeeld rekeningschema aan te maken. Klik dan op "laad demo records"</p>
+Rekeningnummers bestaan uit een 3-cijferig getal (000-999)
+Het is noodzakelijke om rekeningnummers als volgt te groeperen:<br>
+000-099 - Balans C     (Bezittingen)<br>
+100-199 - Balans D		(Schulden)<br>
+400-700 - Resultaat D  (Lasten)<br>
+700-999 - Resultaat C  (Baten)<br>
+<p>In de rechterkant van de tabel staatn iconen op een rekening te bekijken, te wijzigen of te verwijderen</p>
+<p>Met de knop "export" kan een rekeningschema worden geexporteerd om bv in excell op te nemen</p>
+<p>Het is mogelijk om het overzicht te sorteren door op de kop van een kolom te klikken</p>
+<h3>beginbalans</h3>
+Als er nog geen boekingen zijn, kan de beginbalans worden aangemaakt. Let er op dat alle bedragen in eurocenten opgegeven moeten worden.
+<br>
+Er wordt gevraagd naar een boekjaar. Vul huer het jaar in voorafgaande aan het huidige boejaar!!!!!!
+<h3>importeer mutaties</h3>
+<h2>Voor Emmaus</h2>
+Bij de ING bank : <br>
+- af- en bijschrijvingen downloaden <br>
+- periode opgeven en kiezen voor CSV bestand<br>
+- het betsand sorteren indien nodig , ING laat standaard de datum aflopen. Oplopende datum is duidelijker<br>
+Importeert nu het door de bank geleverde CSV bestand. De boekingen worden toegevoegde aan het bestand boekingen.<br><br>
+Het verwerken van de mutaties van de spaarrekening moet handmatig.
+<br><br>
+Bij de Triodos bank (2 rekeningen):<br>
+- downloaden <br>
+- zoekopdracht <br>
+- periode opgeven en kiezen voor CSV bestand<br>
+Importeert nu het door de bank geleverde CSV bestand. De boekingen worden toegevoegde aan het bestand boekingen.
+
+<h3>boek mutaties</h3>
+Hiermme kunnen bij de boekingen de tegenrekeningen worden geplaatst. Het is ook verstandig het nummer van de boeking te plaatsen op de facturen, zodat ze bij controle gemakkelijk teruggevonden kunnen worden.
+<br>
+Voorbeelden:
+<br>
+kost en inwoning Jorg -> woonbijdragen
+
+<h3>handmatige boekingen</h3>
+<br>
+spaarrekening ING:
+<br>
+bank/kas : bijboekingen:credit  -  afboekingen:debet
+<br>
+Kas:
+<br>
+verkopen hoog tarief:    kas(c)=>verkopen hoogtarief
+<br>
+verkopen hoog tarief:    kas(c)=>verkopen laagtarief
+<br>
+giften:					 kas(c)=>ontvangen giften
+<br>
+
+
+<h3>overzichten</h3>
+Deze functie biedt de mogelijkheid diverse overzichten te maken van het lopende boekjaar.<br>
+Het overzicht, dat wordt getoond, kan ook altijd worden geexporteerd naar excell
+<h4>balans</h4>
+Voor de balans moet de balans van het vorig boekjaar volledig zijn ingevuld. 
+<h4>resultaten rekening</h4>
+Op de resultatenrekening worden alleen de posten vermeld, waarvoor een post op de begroting staat. Vergeet dus niet eerst de begroting in te vulllen
+
+
+<h2>bankmutaties verwerken</h2>
+<ul>
+	<li>Stel de datum vast van de laatste mutatie. Dat kan door het menuitem "overzicht boekingen" te draaien en te kijen naar de datum van de laatste boeking.</li>
+	<li>Maak bij bank een mutatiebestand: downloaden - zoekopdracht - datums invullen - download formaat: CSV</li>
+	<li>Plaats bestand in boekhouding/edh</li>
+	<li>Start <bold>importeer mutaties.</bold> Er wordt aangegeven hoeveel boekingen er verwerkt zijn</li>
+	<li>Start <bold>boek mutaties.</bold> Voor iedere boeking een tegenrekening opgeven. boeknummers noteren op facturen.</li>
+</ul>
+<br>pianofonds 23000 debet van 043 naar 430
+<br>rente ASN ..... credit van 120 naar 803
+<br>rente Oikocredit ..... credit van 130 naar 803
+<br>verhuur piano 30000 credit van 150 naar 830
+<h3>Jaarafsluiting</h3>
+Bij de jaarafluiting wordt gevraagd naar welke balansrekening het resultaat moeten worden afgeboekt. Meestal is dat Winst vorig boekjaar of verlies vorig boekjaar. Daarna wordt automatisch de balans opgemaakt voor het nieuwe boekjaar.
+Vergeet hierna niet een begroting te maken voor alle rekeningnummers. Ook als wordt er geen bedrag begroot. In dat geval 0 invullen.

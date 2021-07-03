@@ -1,0 +1,15 @@
+naam;rekeningnummer;soort;type
+Betalingsrekening;110;B;D
+Spaarrekening;120;B;D
+Eigendommen;140;B;D
+Nog te ontvangen;150;B;D
+Verlies vorig boekjaar;185;B;D
+Kapitaaal;010;B;C
+Nog te betalen;020;B;C
+Kruisposten;030;B;C
+winst vorig boekjaar;040;B;C
+Algemene kosten;400;R;D
+Bankkosten;411;R;D
+Kantoorbehoeften;412;R;D
+Kleine investeringen;413;R;D
+Rente;803;R;C
