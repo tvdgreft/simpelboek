@@ -147,19 +147,17 @@ class Tableform
 		# Show number of rows and pages and a help function if defined
 		#
 		#
-		#$html .='<form action=' . $this->action . ' method="post" name="records">';
 		$html .= '<div class="row">';
 		$html .= '<div class="col-md-6")>';
-		#$html .= '<h2>' . $this->title . '</h2><br><br><br>';
 		$html .= __( 'TOTAAL AANTAL RECORDS', 'prana' ) . ':' . $NumberOfRecords . '&nbsp' . __( 'AANTAL PAGINAS', 'prana' ) . ':' . $pages;
 		$html .= '</div>';
+		if(isset($this->filtercolumns) && count($this->filtercolumns))
+		{
 		$html .= '<div class="col-md-5 prana-box">';
 		$html .= '<h3>' . __( 'ZOEKEN', 'prana' ) . '</h3>';
-		#$html .= '<p style="font-size:8px;">' . jtext::_($this->textfile,"INFO_SEARCH") . '</p>';
 		#
 		# print filterform
 		#
-		#print_r($this->filters);
 		if(isset($this->filtercolumns))
 		{
 			foreach ($this->filtercolumns as $c => $label)
@@ -181,9 +179,10 @@ class Tableform
 			}
 		}
 		$html .= '<button class="prana-btnsmall" name="filter">' .  __( 'ZOEK', 'prana' ) . '</button>';
+		$html .= '</div>';
+		}
+		$html .= '</div>';
 		$html .= '<br><br>';
-		$html .= '</div>';
-		$html .= '</div>';
 		#
 		#
 		#
@@ -191,23 +190,24 @@ class Tableform
 		#
 		# start the table
 		#
-		#$html .='<form action=' . $this->action . ' method="post" name="records">';
-		$html .= '<table class="compact-table">';
-		$html .= '<thead>';
+		$html .= '<br>';
+		$html .= '<table class="compacttable">';
 		$html .= '<tr>';
 		$i=0;
 		#foreach ($this->columns as $name => $translation)
 		foreach ($this->columns as $c)
 		{
+			$thclass = "compactth";
+			$type = $c[2] ? $c[2] : "string";	// default type is string
+			if($type == "number" || $type == "euro" || $type=="stringright") {$thclass = "compactthright"; }	// getallen rechts aansluiten
 			$sortfield='<button class="pbtn-header" name="sort" value="' . $c[0] . '">' . $c[1]  . '</button>';
-			$html .= '<th>' . $sortfield . '</th>';
+			$html .= '<th class="' . $thclass .'">' . $sortfield . '</th>';
 		}
-		if (in_array("vw", $this->permissions)) {$html .= '<th></th>';}	#Empty header for view button
-		if (in_array("dl", $this->permissions)) {$html .= '<th></th>';}	#Empty header for view button
-		if (in_array("md", $this->permissions)) {$html .= '<th></th>';}	#Empty header for view button
-		if (in_array("cp", $this->permissions)) {$html .= '<th></th>';}	#Empty header for view button
+		if (in_array("vw", $this->permissions)) {$html .= '<th class="compactth"></th>';}	#Empty header for view button
+		if (in_array("dl", $this->permissions)) {$html .= '<th class="compactth"></th>';}	#Empty header for view button
+		if (in_array("md", $this->permissions)) {$html .= '<th class="compactth"></th>';}	#Empty header for view button
+		if (in_array("cp", $this->permissions)) {$html .= '<th class="compactth"></th>';}	#Empty header for view button
 		$html .= '</tr>';
-		$html .= '</thead>';
 		#
 		# print rows
 		#
@@ -215,12 +215,15 @@ class Tableform
 		$html .= '<tbody>';
 		foreach ( $pb as $p )
 		{
-			$html .= '<tr>';
+			$html .= '<tr class="compacttr">';
 			$i=0;
 			foreach($this->columns as $c)
 			{
+				$tdclass = "compacttd";
+				$type = $c[2] ? $c[2] : "string";	// default type is string
+				if($type == "number" || $type == "euro") {$tdclass = "compacttdright"; }	// getallen rechts aansluiten
 				$name=$c[0];
-				$html .= '<td align="' . $c[2] . '">' . $p->$name . '</td>';
+				$html .= '<td class="' . $tdclass . '"' . $c[2] . '">' . $p->$name . '</td>';
 				$i++;
 			}
 			#
@@ -229,22 +232,22 @@ class Tableform
 			if (in_array("vw", $this->permissions)) 
 			{
 				#$html .= '<td><button type="submit" class="btn btn-link btn-xs showrecord" name="showrecord" value="' . $p->id . '"><i class="fa fa-eye"></i></button>';
-				$html .= '<td class="showrecord"><a class="btn btn-link btn-xs"><i class="fa fa-eye"></a></td>';
+				$html .= '<td class="compacttd showrecord"><a class="btn btn-link btn-xs"><i class="fa fa-eye"></a></td>';
 			}
 			
 			if (in_array("dl", $this->permissions)) 
 			{ 
 				$message=sprintf( __( '%s %d verwijderen , zeker weten?', 'prana' ),$this->single,$p->$uid);
 				#$html .= '<td><button type="submit" class="btn btn-link btn-xs" name="deleterecord" onclick="return confirm(\'' . $message. '\'value="' . $p->$this->uid . '"><i class="fa fa-trash"></i></button></td>'; 
-				$html .= '<td><button type="submit" name="deleterecord" class="btn btn-link btn-xs" onclick="return confirm(\'' . $message. '\');" value="' . $p->$uid . '"><i class="fa fa-trash"></i></button></td>';
+				$html .= '<td class="compacttd"><button type="submit" name="deleterecord" class="btn btn-link btn-xs" onclick="return confirm(\'' . $message. '\');" value="' . $p->$uid . '"><i class="fa fa-trash"></i></button></td>';
 			}
 			if (in_array("md", $this->permissions)) 
 			{ 
-				$html .= '<td><button type="submit" name="modifyrecord" class="btn btn-link btn-xs" value="' . $p->id . '"><i class="fa fa-pencil"></i></button></td>';
+				$html .= '<td class="compacttd"><button type="submit" name="modifyrecord" class="btn btn-link btn-xs" value="' . $p->id . '"><i class="fa fa-pencil"></i></button></td>';
 			}
 			if (in_array("cp", $this->permissions)) 
 			{ 
-				$html .= '<td><button type="submit" name="copyrecord" class="btn btn-link btn-xs" value="' . $p->id . '"><i class="fa fa-copy"></i></button></td>'; 
+				$html .= '<td class="compacttd"><button type="submit" name="copyrecord" class="btn btn-link btn-xs" value="' . $p->id . '"><i class="fa fa-copy"></i></button></td>'; 
 			}
 
 			$html .= '</tr>';
@@ -258,6 +261,7 @@ class Tableform
 		}
 		$html .= '</tbody>';
 		$html .= '</table>';
+		$html .= '<br>';
 		#
 		# buttons for next and previous page
 		#

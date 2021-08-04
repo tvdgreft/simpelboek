@@ -27,9 +27,6 @@ class Main
 		$this->action = home_url(add_query_arg(array(), $wp->request));
 		$this->backgroundcolor=get_option('backgroundcolor');
 		$this->organisation=get_option('organisation');
-		#$action = "http://www.pranamas.nl";
-		#wp_redirect($action);
-		#echo("<script>location.href = '".$action."'</script>");
 		#
 		# treat arguments
 		#
@@ -44,11 +41,60 @@ class Main
 		#
 		# Toon het menu
 		#
+		#
+		# test nieuw menu
+		###########################################################
+		$menu = new Menu;
 		$html .= '<div class="prana-display">';
+		$manual = 'manual';
+		$part = '';
+		if(isset($_POST['menu'] )) { $part = $_POST['menu']; }
+		elseif(isset($_GET['menu'] )) { $part=$_GET['menu']; }
+		if($main = $menu->MainMenu($part)) { $part = $main; }
+		$html .= SBK_HelpModal($manual,$part,'Overzicht boekhoudingen');
+		$html .= $menu->start();
+		# toon welke boekhouding geopend is
+		if(isset($_SESSION['code'])) 
+		{ 
+			$boekhouding = $dbio->ReadUniqueRecord(array("table"=>Dbtables::boekhoudingen['name'],"key"=>"code","value"=>$_SESSION['code']));
+			$html .= '<h1>' . __( 'Boekhouding', 'prana' ) . ' ' . $boekhouding->naam . __( ' is geopend, boekjaar is:', 'prana' ). $boekhouding->boekjaar . '</h1>';
+		}
 		$html .='<form action=' . $this->action . ' method="post" enctype="multipart/form-data" onSubmit="return ValForm()">';
+		if(isset($_GET['menu']))
+		{
+			if($classfile=Bootstrap::ClassFile($_GET['menu'])) 
+			{ 
+				$class = Bootstrap::NameSpace() . '\\' . $_GET['menu'];
+				$run = new $class;
+				$html .= $run->Start();
+			}
+		}
+		if(!isset($_POST['cancel']))
+		{
+			foreach ($_POST as $key => $value)
+			{
+				#echo "<br>key=" . $key;
+				$class = Bootstrap::NameSpace() . '\\' . $key;
+				#echo "<br>class=" . $class;
+				if($classfile=Bootstrap::ClassFile($key)) 
+				{ 
+					#echo "<br>classfile:".$classfile;
+					$run = new $class;
+					$html .= $run->Start(); 
+					break;					# zorgt er voor dat een eerder gestarte class opnieuw wordt gestart
+				}
+			}
+		}
+		$html .= '</form>';
+		$html .= '<hr>';
+		$html .= '</div>';
+		return($html);
+		###################################################################
+		#$html .= '<div class="prana-display">';
+		#$html .='<form action=' . $this->action . ' method="post" enctype="multipart/form-data" onSubmit="return ValForm()">';
 		#$html .='<form action=' . $this->action . ' method="post">';
-		$html .= $this->Menu();
-		$html .= '<div class="prana-display">';
+		#$html .= $this->Menu();
+		#$html .= '<div class="prana-display">';
 		##############################################
 		# Plugin restarted after prsseing a button
 		# so perform the function which should be started

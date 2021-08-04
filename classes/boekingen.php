@@ -16,14 +16,14 @@ class Boekingen extends Tableform
         $this->class = "boekingen";
 		$this->table = Dbtables::boekingen['name']."_".$_SESSION['code'];
         $this->columns= [
-                                ["id","id","left"],         #table column name, columnname to be displayed, display orientation
-                                ["datum","datum","left"],
-                                ["bedrag","bedrag","left"],
-                                ["btw","btw","left"],
-                                ["type","type","left"],
-                                ["rekening","rekening","left"],
-                                ["tegenrekening","tegenrekening","left"]];
-		$this->filtercolumns = array("datum"=>"datum","bedrag"=>"bedrag");
+                                ["id","id","string"],         #table column name, columnname to be displayed, display orientation
+                                ["datum","datum","date"],
+                                ["bedrag","bedrag","euro"],
+                                ["btw","btw","euro"],
+                                ["type","type","stringright"],
+                                ["rekening","rekening","stringright"],
+                                ["tegenrekening","tegenrekening","stringright"]];
+		$this->filtercolumns = array("datum"=>"datum","bedrag"=>"bedrag","rekening"=>"rekening");
         $this->permissions = ["vw","cr","md","dl"];
         $this->maxlines=20;
 		$this->uid="id";	#the unique key

@@ -8,10 +8,50 @@ class Balans extends Overzichten
 {
     function Start()
 	{
+		$overzicht = new Overzicht();
         $this->LoadData();
 		$form = new Forms();
 		$html='';
 		$html .= '<h2>balans_' . $_SESSION['code'] . '_' . $this->boekjaar . '</h2>';
+
+		// De huidige balans
+		[$ditjaar,$dc,$dd,$dt] = $overzicht->Balans();
+		#echo '<br>ditjaar dc= ' . $dc . 'dd=' . $dd .' dt='.$dt.'<br>';
+		#print_r($ditjaar);
+		[$vorigjaar,$vc,$vd,$vt] = $overzicht->OudeBalans($this->boekjaar-1);
+		#echo '<br>vorigjaar';
+		#print_r($vorigjaar);
+		$totaal = $overzicht->array_merge_recursive_two($vorigjaar,$ditjaar);
+		#echo '<br>totaal<br>';
+		#print_r($totaal);
+		$tabel = $overzicht->TotalenTabel($totaal);
+		// voeg verlies/winst regel en totalen toe aan tabel
+		$dv=$vv=$gv=$dw=$vw=$gw='';
+		if($dt < 0) {$dv = abs($dt); $dd += $dv;}
+		if($dt > 0) {$dw = $dt; $dc += $dw; }
+		if($vt < 0) {$vv = abs($vt); $vd += $vv;}
+		if($vt > 0) {$vw = $vt; $vc += $vw;}
+		#$tabel[] = ['','winst',$vw,$dw,'',' ','verlies',$vv,$dv];
+		$tabel[] = ['','verlies',$vv,$dv,'',' ','winst',$vw,$dw];
+		$tabel[] = ['','',$vd,$dd,'','','',$vc,$dc];
+		$lastyear = $this->boekjaar-1;
+		$colinfo = array(
+			
+			array("rkn","string"),
+			array("rekening","string"),
+			array($lastyear,"euro"),
+			array($this->boekjaar,"euro"),
+			array('',''),
+			array("rkn","string"),
+			array("rekening","string"),
+			array($lastyear,"euro"),
+			array($this->boekjaar,"euro"),	
+		);
+		$tabel = $this->DisplayTabel($tabel,$colinfo);
+		$html .= $tabel;
+
+		// old version
+		/*
 		$balans=$this->BerekenBalans();
 		$maxrow=count($balans);
 		$html .= '<table class="compacttable">';
@@ -36,9 +76,10 @@ class Balans extends Overzichten
 				$html .= '</tr>';
 		}
 		$html .= '</table>';
+		*/
 		$filename = 'balans_' . $_SESSION['code'] . '_' . $this->boekjaar . '.csv';
 		$html .= '<span style="display:none">'.$filename.'</span>';				#filename voor export script
-		$html .= '<input id="overzicht" name="overzicht" value="balans" type="hidden" />';
+		$html .= '<input id="balans" name="balans" type="hidden" />';
 		$form->buttons = [
 			['id'=>'exporttable','class'=>'exporttable' ,'value'=>__( 'exporteren', 'prana' )],	#knop voor het exporteren van de table (exportcsv.js)
 			['id'=>'cancel','value'=>__( 'terug', 'prana' ),"status"=>"formnovalidate","onclick"=>"buttonclicked='cancel'"]
@@ -46,8 +87,10 @@ class Balans extends Overzichten
 		$html .= $form->DisplayButtons();
 		return($html);
 	}
+	/*
     protected function BerekenBalans()
 	{
+		$overzicht = new Overzicht();
 		$balans[0][0] = 'reknr';
 		$balans[0][1] = 'naam';
 		$balans[0][2] = 'balans' . strval($this->boekjaar -1);
@@ -66,7 +109,7 @@ class Balans extends Overzichten
 			{
 				if($p->soort == 'B')
 				{
-					$bedrag = $this->PlusOrMin($b->type,$p->rekeningnummer,$b->rekening,$b->tegenrekening,$p->soort,$p->type,$b->bedrag);
+					$bedrag = $overzicht->PlusOrMin($b->type,$p->rekeningnummer,$b->rekening,$b->tegenrekening,$p->soort,$p->type,$b->bedrag);
 					$totaal[$p->rekeningnummer] += $bedrag;
 					if($p->type == 'C' && $bedrag) { $result -= $bedrag;}
 					if($p->type == 'D' && $bedrag) { $result += $bedrag;}
@@ -113,4 +156,5 @@ class Balans extends Overzichten
 		$balans[$row][$col+7]=number_format($teb[4]/100,2,',','');
 		return($balans);
 	}
+	*/
 }

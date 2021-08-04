@@ -14,12 +14,12 @@ class Rekeningen extends Tableform
         $this->class = "rekeningen";
 		$this->table = Dbtables::rekeningen['name']."_".$_SESSION['code'];
         $this->columns= [
-                                ["id","id","left"],         #table column name, columnname to be displayed, display orientation
-                                ["naam","naam","left"],
-                                ["bankrekening","Bankrekening","left"],
-                                ["rekeningnummer","rekeningnummer","left"],
-                                ["soort","soort","left"],
-                                ["type","type","left"]];
+                                ["id","id","string"],         #table column name, columnname to be displayed, display orientation
+                                ["naam","naam","string"],
+                                ["bankrekening","Bankrekening","string"],
+                                ["rekeningnummer","rekeningnummer","string"],
+                                ["soort","soort","string"],
+                                ["type","type","string"]];
 		$this->filtercolumns = array("soort"=>"soort","type"=>"type");
         $this->permissions = ["vw","cr","md","dl","dm"];
         $this->maxlines=20;

@@ -32,38 +32,21 @@ class Overzichten
         #$filter = 'datum >= "' . strval($this->boekjaar) .'-01-01" and datum <= "' . strval($this->boekjaar).'-12-31"';
         #echo '<br>filter:' . $filter;
         #$this->boekingen = $dbio->ReadRecords(array("table"=>$this->table_boekingen,"filter"=>$filter));
-		$this->boekingen = $dbio->ReadRecords(array("table"=>$this->table_boekingen,"prefilter"=>array("datum"=>$this->boekjaar)));  # filter alleen op jaartal
+		#$this->boekingen = $dbio->ReadRecords(array("table"=>$this->table_boekingen,"prefilter"=>array("datum"=>$this->boekjaar)));  # filter alleen op jaartal
+		$this->boekingen = $dbio->ReadRecords(array("table"=>$this->table_boekingen,"filter"=>"tegenrekening!=''","prefilter"=>array("datum"=>$this->boekjaar)));
 		$this->vorigeboekingen = $dbio->ReadRecords(array("table"=>$this->table_boekingen,"prefilter"=>array("datum"=>$this->boekjaar-1)));  # filter alleen op jaartal
         $this->table_balans = Dbtables::balans['name']."_".$_SESSION['code'];
         $this->vorigebalans = $dbio->ReadRecords(array("table"=>$this->table_balans,"prefilter"=>array("boekjaar"=>$this->boekjaar-1)));
 		$this->table_begroting = Dbtables::begroting['name']."_".$_SESSION['code'];
         $this->begroting = $dbio->ReadRecords(array("table"=>$this->table_begroting,"prefilter"=>array("boekjaar"=>$this->boekjaar)));
     }
-    protected function PlusOrMin($btype,$rekening,$vanrekening,$naarrekening,$psoort,$ptype,$bedrag)
-	{
-		$van=$naar=0;
-		if($rekening == $vanrekening) { $van = 1; }
-		if($rekening == $naarrekening) { $naar = 1; }
-		if(	($btype == 'C' && $van  && $psoort == 'B' && $ptype == 'D') || 
-			($btype == 'C' && $naar && $psoort == 'B' && $ptype == 'C') ||
-			($btype == 'C' && $naar && $psoort == 'R' && $ptype == 'C') ||
-			($btype == 'D' && $van && $psoort == 'B' && $ptype == 'C') ||
-			($btype == 'D' && $naar && $psoort == 'B' && $ptype == 'D') ||
-			($btype == 'D' && $naar && $psoort == 'R' && $ptype == 'D') ) { return ($bedrag);}
-		if(	($btype == 'C' && $van  && $psoort == 'B' && $ptype == 'C') || 
-			($btype == 'C' && $naar && $psoort == 'B' && $ptype == 'D') ||
-			($btype == 'C' && $naar && $psoort == 'R' && $ptype == 'D') ||
-			($btype == 'D' && $van && $psoort == 'B' && $ptype == 'D') ||
-			($btype == 'D' && $naar && $psoort == 'B' && $ptype == 'C') ||
-			($btype == 'D' && $naar && $psoort == 'R' && $ptype == 'C') ) { return(-$bedrag);}
-		return(0);
-	}
-    function DisplayTable($table)
+    
+	function DisplayTable(array $table) : string
 	{
 		$html='';
 		$rows = count($table);
 		$cols = count($table[0]);
-		$html .= '<table class="compacttable">';
+		$html .= '<table class="prana">';
 		$html .= '<tr class="compacttr">';
 		for ($col=0; $col < $cols; $col++)
 		{
@@ -83,4 +66,92 @@ class Overzichten
 		$html .= '</table>';
 		return($html);
 	}
+	/**
+	 * DisplayTabel
+	 * converteert tabel naar HTML output
+	 * table{row][col]
+	 * headers[01,....] = header kolom
+	 * headers[0,01......] type: string, date, number, euro (eurocents)
+	 */
+	function DisplayTabel(array $table,array $headers) : string
+	{
+		$html='';
+		$rows = count($table);
+		$cols = count($headers);
+		$html .= '<table class="compacttable">';
+		$html .= '<tr>';
+		for ($col=0; $col < $cols; $col++)
+		{
+			$thclass = "compactth";
+			$type = $headers[$col][1] ? $headers[$col][1] : "string";	// default type is string
+			if($type == "number" || $type == "euro") {$thclass = "compactthright"; }	// getallen rechts aansluiten
+			$html .= '<th class="' . $thclass . '">' . $headers[$col][0] . '</th>';
+		}
+		for($row=1; $row<=$rows; $row++)
+		{
+				$html .= '<tr class="compacttr">';
+				for ($col=0; $col <$cols; $col++)
+				{
+					$tdclass = "compacttd";
+					$type = $headers[$col][1] ? $headers[$col][1] : "string";	// default type is string
+					if($type == "number" || $type == "euro") {$tdclass = "compacttdright"; }	// getallen rechts aansluiten
+					$cel = '';
+					if(isset($table[$row][$col]))
+					{
+						$cel = $table[$row][$col];
+						if($type == "euro") 	{ $cel = $this->Euro($table[$row][$col]); }
+						else 					{ $cel = $table[$row][$col];}
+					}
+					$html .= '<td class="' . $tdclass . '">' . $cel . '</td>';
+				}
+		}
+		$html .= '</table>';
+		return($html);
+	}
+	/**
+     *  converteert centen naar euro notatie (vb: 34560 = 345,60)
+     */
+    function Euro(string $cents) : string
+    {
+        $html = '';
+        if($cents == '') { return(''); }
+        $euro = number_format((abs($cents) /100), 2, ',', '.');
+        if($cents < 0) {$html .= '-';}
+        $html .= $euro;
+        return($html);
+    }
 }
+/*
+#
+    # Print de balans
+    #
+    function PrintTabel(array $table,array $headers) : string
+    {
+        $html = '';
+        $html .= '<table class="compacttable">';
+		$html .= '<tr class="compacttr">';
+        $cols = count($headers);
+        $midcol = $cols/2;
+        // koppen van tabel maken
+		for ($col=0; $col < $cols; $col++)
+		{
+			if($headers[$col][1] == "right") { $html .= '<th class="compactthright">' . $headers[$col][0] . '</th>'; }
+			else { $html .= '<th class="compactth">' . $headers[$col][0]. '</th>'; }
+			if($col == $midcol-1) { $html .= '<th class="compactth">&nbsp;&nbsp;</th>'; }
+		}
+		for($row=1; $row<=count($table); $row++)
+		{
+				$html .= '<tr class="compacttr">';
+				for ($col=0; $col < $cols; $col++)
+				{
+					if(!isset($table[$row][$col])) { $table[$row][$col] = ''; }
+                    // bedragen rechts aansluiten in in euro notatie
+					if($headers[$col][1] == "right") { $html .= '<td class="compacttdright">' . $this->Euro($table[$row][$col]) . '</td>'; }
+					else { $html .= '<td class="compacttd">' . $table[$row][$col] . '</td>'; }
+					if($col == $midcol-1) { $html .= '<td class="compacttd">&nbsp;&nbsp;</td>'; }
+				}
+				$html .= '</tr>';
+		}
+		$html .= '</table>';
+        return($html);
+*/

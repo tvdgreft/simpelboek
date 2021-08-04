@@ -39,7 +39,11 @@ class Begroting
         $this->table = Dbtables::begroting['name']."_".$_SESSION['code'];
         $html = '';
         $html .= '<br><h2>'. __("Opstellen begroting","prana") . '  ' . __("huidige boekjaar is ","prana") . $boekjaar . '</h2>';
-        $html .= $form->Text(array("label"=>__( 'voor welk boekjaar', 'prana' ), "id"=>"begrotingjaar", "type"=>"number" , "value"=>$boekjaar+1, "width"=>"100px;"));
+        //
+        // Als het huidige boekjaar nog geen begroting heeft, dan huidige boekjaar default
+        $begroting = $dbio->ReadRecords(array("table"=>Dbtables::begroting['name']."_".$_SESSION['code'],"prefilter"=>array("boekjaar"=>$boekjaar)));
+        $boekjaar = count($begroting) ? $boekjaar+1 : $boekjaar;
+        $html .= $form->Text(array("label"=>__( 'voor welk boekjaar', 'prana' ), "id"=>"begrotingjaar", "type"=>"number" , "value"=>$boekjaar, "width"=>"100px;"));
         $form->buttons = [
             ['id'=>'formbegroting','value'=>__( 'begroting aanmaken', 'prana' )],
             ['id'=>'cancel','value'=>__( 'annuleren', 'prana' ),"status"=>"formnovalidate","onclick"=>"buttonclicked='cancel'"]
@@ -72,9 +76,10 @@ class Begroting
         foreach($rekeningen as $r)
         {
             $begroting = $dbio->ReadRecords(array("table"=>$this->table,"prefilter"=>array("boekjaar"=>$begrotingjaar,"rekeningnummer"=>$r->rekeningnummer)));
-            $bedrag = count($begroting) ? $begroting[0]->bedrag : "";
             $vorigebegroting = $dbio->ReadRecords(array("table"=>$this->table,"prefilter"=>array("boekjaar"=>$vorigbegrotingjaar,"rekeningnummer"=>$r->rekeningnummer)));
             $vorigbedrag = count($vorigebegroting) ? $vorigebegroting[0]->bedrag : "";
+            // vul als default het bedrag wat er stond in. Bij een nieuwe begroting: neem bedrag vorig jaar
+            $bedrag = count($begroting) ? $begroting[0]->bedrag : $vorigbedrag;
             $html .= '<tr>';
             $html .= '<td>'. $r->naam . '</td>';
             $html .= '<td>'. $r->soort . '</td>';

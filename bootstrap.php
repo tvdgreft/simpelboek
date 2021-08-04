@@ -41,6 +41,7 @@ class Bootstrap
 		define ( 'SBK_PLUGIN_DIR', wp_normalize_path( plugin_dir_path( __FILE__ ) ) );
 		define ( 'SBK_DATA_DIR', SBK_PLUGIN_DIR . 'data/' );
 		define ( 'SBK_DOC_DIR', SBK_PLUGIN_DIR . 'doc/' );
+		define ( 'SBK_FUNCTIONS_DIR', SBK_PLUGIN_DIR . 'functions/' );
 	}
 
 /**
@@ -89,11 +90,19 @@ class Bootstrap
 			}
 		});
 	}
+	/** Laadt functiebestanden */
+	protected function load_functions() {
+		$files = glob( SBK_FUNCTIONS_DIR . '*.php' );
+		foreach ( $files as $file ) {
+			require_once $file;
+		}
+	}
 	public function init()
 	{
 		$self = new self();
 		$this->autoloader();	#start autoloader for loading classes automatically
 		$this->define_constants();
+		$this->load_functions();
 		$main = new main();
 		$options = new options();
 		if ( $this->requirements() ) 

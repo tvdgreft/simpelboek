@@ -11,6 +11,9 @@ class Dbtables
 		`code` varchar(10) NOT NULL,
 		`naam` varchar(50) NOT NULL,
 		`boekjaar` int(4) NOT NULL,
+		`kapitaalrekening` varchar(4) NOT NULL,
+		`winstrekening` varchar(4) NOT NULL,
+		`verliesrekening` varchar(4) NOT NULL,
 		UNIQUE KEY (`code`),
 		PRIMARY KEY (`id`)"];
 

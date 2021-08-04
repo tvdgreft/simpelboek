@@ -30,24 +30,49 @@ input[type=number] {
 	color: #FFF;
 	width: 50%;
 }
-.compacttable  .compactth .compacttd .compacttr
+table.prana {
+    border:solid 4px #006CFF;
+    margin:0px;
+    padding:0px;
+    border-spacing:0px;
+    border-collapse:collapse;
+    line-height:22px;
+    font-size:18px;
+    font-family:Arial, Verdana, Tahoma, Helvetica, sans-serif;
+    font-weight:400;
+    text-decoration:none;
+    color:#010107e5; 
+    white-space:pre-wrap;
+}
+table.prana th {
+  padding: 10px;
+  background-color:#98dcff;
+  border:solid 2px #006CFF;
+}
+table.prana tr {
+    margin:0;
+    background: #D8B5B6;
+    padding:2px;
+}
+
+table.prana td tdright{
+  padding: 5px;
+  border:solid 1px #006CFF;
+}
+.tdright {
+    text-align: right;
+}
+
+/* booktable - tabel voor boekhoudprogramma , vervangt compacttabe */
+
+.boektable  .boekh .boektd .boektr
 {
 	height: 100px;
-	cellpadding: 0;
+	cellpadding: 3px;
 	cellspacing: 0;
 	border: 2px;
 }
-.boektable {
-    width: 100%;
-	max-width: 100%;
-	margin-bottom: 1.5em;
-	border-collapse: collapse;
-	border-spacing: 0;
-	background-color: transparent;
-	font-size: 1em;
-	border: solid 1px #ddd;
-}
-.compacttable
+.boektable
 {
 	width: 100%;
 	max-width: 100%;
@@ -58,7 +83,7 @@ input[type=number] {
 	font-size: 0.7em;
 	border: 0;
 }
-.compacttr {
+.boektr {
 	margin: 0;
     padding: 0;
     border: 0;
@@ -67,14 +92,14 @@ input[type=number] {
     vertical-align: baseline;
     background: transparent;
 }
-.compactth, .compactthright
+.boekth, .boekthright
 {
 	background-color: #CD5C5C;
 }
-.compactthright {
+.boekthright {
     text-align: right;
 }
-.compacttd, .compacttdright
+.boektd, .boektdright
 {
 	margin: 0;
     padding: 0;
@@ -83,6 +108,76 @@ input[type=number] {
 	height: 5px;
     vertical-align: baseline;
     background: #D8B5B6;
+    max-width: 500px; 
+word-wrap: break-word;
+}
+.boektdright {
+    text-align: right;
+}
+
+.boektdeven, .boektdevenright {
+	margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+	height: 5px;
+    vertical-align: baseline;
+    background: #D8B5B6;
+}
+.boektdevenright {
+    text-align: right;
+}
+.boektdodd, .boektdoddright {
+	margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+	height: 5px;
+    vertical-align: baseline;
+    background: #CD5C5C;
+}
+.boektdoddright {
+    text-align: right;
+}
+/* einde compacttable */
+
+/* compacttabel */
+
+.compacttable  .compactth .compacttd .compacttr
+{
+    border:solid 4px #006CFF;
+    margin:0px;
+    padding:0px;
+    border-spacing:0px;
+    border-collapse:collapse;
+    line-height:22px;
+    font-size:18px;
+    font-family:Arial, Verdana, Tahoma, Helvetica, sans-serif;
+    font-weight:400;
+    text-decoration:none;
+    color:#010107e5; 
+    white-space:pre-wrap;
+}
+
+.compacttr 
+{
+	margin:0;
+    background: #D8B5B6;
+    padding:2px;
+}
+.compactth, .compactthright, .compactthleft
+{
+    padding: 10px;
+    background-color:#98dcff;
+    border:solid 2px #006CFF;
+}
+.compactthright {
+    text-align: right;
+}
+.compacttd, .compacttdright, .compacttdleft
+{
+	padding: 5px;
+    border:solid 1px #006CFF;
 }
 .compacttdright {
     text-align: right;
@@ -112,6 +207,8 @@ input[type=number] {
 .compacttdoddright {
     text-align: right;
 }
+/* einde compacttable */
+/*
 .boektable {
     width: 100%;
 	max-width: 100%;
@@ -135,3 +232,4 @@ input[type=number] {
     vertical-align: baseline;
     background: transparent;
 }
+*/

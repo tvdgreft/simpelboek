@@ -26,6 +26,7 @@ class Scripts
 		$html .= '<link rel="stylesheet" href="' . $cssurl . 'prana.css' . '">';
 		$html .= '<link rel="stylesheet" href="' . $cssurl . 'forms.css' . '">';
 		$html .= '<link rel="stylesheet" href="' . $cssurl . 'simpelboek.css' . '">';
+		$html .= '<link rel="stylesheet" href="' . $cssurl . 'menu.css' . '">';
 		$html .= '<script src="https://code.jquery.com/jquery-1.12.4.js"></script>';
 		$html .= '<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>';
 		$html .= '<script src="' . $jsurl . 'mdt_tables.js' . '"></script>';

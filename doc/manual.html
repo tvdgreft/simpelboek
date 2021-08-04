@@ -14,7 +14,7 @@ In de databank van de website worden de volgende tabellen aangemaakt:
 </table>
 <h2>functies</h2>
 simpelboek toont een menu met de volgende functies;
-<h3>boekhoudingen</h3>
+<h3 id="boekhoudingen">boekhoudingen</h3>
 Dit menu is alleen zichtbaar, wanneer je toegamg hebt tot alle boekhoudingen. (zie: opstarten)
 Hiermee kunnen boekhoudingen worden aangemaakt of gewijzigd.
 <p>Er wordt een overzicht getoond van de bestaande boekhoudingen</p>
@@ -102,6 +102,11 @@ Op de resultatenrekening worden alleen de posten vermeld, waarvoor een post op d
 <br>rente ASN ..... credit van 120 naar 803
 <br>rente Oikocredit ..... credit van 130 naar 803
 <br>verhuur piano 30000 credit van 150 naar 830
-<h3>Jaarafsluiting</h3>
-Bij de jaarafluiting wordt gevraagd naar welke balansrekening het resultaat moeten worden afgeboekt. Meestal is dat Winst vorig boekjaar of verlies vorig boekjaar. Daarna wordt automatisch de balans opgemaakt voor het nieuwe boekjaar.
-Vergeet hierna niet een begroting te maken voor alle rekeningnummers. Ook als wordt er geen bedrag begroot. In dat geval 0 invullen.
+<h3 id="jaarafsluiting">jaarafsluiting</h3>
+Met deze functie wordt het boekjaar afgesloten.
+<br>Dat houdt in dat het verlies of de winst wordt afgeboekt op de daartoe bestemde rekening
+<br>Deze rekeningen moeten zijn vastgelegd in de boekhouding (zie boekhoudingen->overzicht->wijzigen)
+<br>Hier moet ook de kapitaalrekening worden vastgelegd om het verlies of winst van het vorige boekjaar af te beoeken.
+<p>De nieuwe balans wordt getoond, waarbij bovenstaande afboekingen hebben plaats gevonden. Na accoord is de jaarafsluiting definitief.</p>
+<p>Het lopende boekjaar wordt automatisch met 1 verhoogd.</p>
+<p>Vergeet voor het nieuwe jaar een begroting aan te maken.</p>
