@@ -11,7 +11,7 @@
  *  $extension is het deel dat bij het lopende menu item hoort. ($manual_$extension)
  *  Als die niet bestaat, dan wordt de algemene handleiding getoond
  */
-function SBK_HelpModal(string $manual,string $extension,string $header) : string 
+function SBK_HelpModal(string $manual,string $extension) : string 
 {
 	$html = '';
 	$main = SBK_DOC_DIR . $manual . '.html';
@@ -22,10 +22,10 @@ function SBK_HelpModal(string $manual,string $extension,string $header) : string
 	$fh = fopen($manual, 'r');
 	$help = fread($fh, filesize($manual));
 	fclose($fh);
-	$html .= SBK_ModalScroll('<i class="fa fa-question fa-lg" style="font-size:24px;"></i>',$header,$help);
+	$html .= SBK_ModalScroll('<i class="fa fa-question fa-lg" style="font-size:24px;"></i>',$help);
 	return($html);
 }
-function SBK_ModalScroll($link,$title,$content)
+function SBK_ModalScroll($link,$content)
 {
 	$m = '';
 	$m .= '<meta name="viewport" content="width=device-width, initial-scale=1">';

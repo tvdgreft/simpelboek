@@ -21,11 +21,25 @@ class Dbio
 		}
 		return(0);
 	}
+	public function DeleteTable($table)
+	{
+		global $wpdb;
+		if(!$table) { return(__( 'Geen tabelnaam opgegeven', 'prana' )); }
+		$query = 'DROP TABLE IF EXISTS ' . $wpdb->prefix.$table;
+		$wpdb->query($query);
+		if($wpdb->last_error !== '')
+		{
+			$wpdb->print_error();
+			return(__( 'database error', 'prana' ));
+		}
+		return(0);
+	}
 	/**
  	* Returns the count of records in the database.
  	*
 	 * @return null|string
  	*/
+
 	public function CountRecords($table) 
 	{
 		global $wpdb;
@@ -78,7 +92,6 @@ class Dbio
 		$table = isset($args["table"]) ? $args["table"] : "";
 		$wptable = $wpdb->prefix . $table;
 		$query='SELECT * FROM '. $wptable .' WHERE ' . $args["key"] . ' ="' . $args["value"] .'"';
-		#echo "<br>" . $query;
 		$row=$wpdb->get_row( $query );
 		return($row);
 	}
@@ -244,7 +257,7 @@ class Dbio
 	# create a record
 	# the fields created and modified are set to the current date
 	# $args['fields'] - array of fields $fields=array("field1"=>$value,"field2"=>$value .... )
-	# $args['table'] - table 
+	# $args['fields']
 	public function CreateRecord($args)
 	{
 		global $wpdb;
@@ -288,28 +301,9 @@ class Dbio
 		}
 		$query = rtrim($query,',');	#remove last komma
 		$query .= ' WHERE ' . $args["key"] . ' ="' . $args["value"].'"';
-		echo $query;
+		#echo $query;
 		
 		$result=$wpdb->query($query);
-		return($result);
-	}
-	# $args['table'] - databasetable
-	# $args['fields'] - array of fields $fields=array("field1"=>$value,"field2"=>$value .... )
-	# $args['where'] - array of fields for where clause e.g."where"=array("id"=>$id)
-	public function UpdateRecord($args)
-	{
-		global $wpdb;
-		$wptable = $wpdb->prefix . $args["table"];
-		#
-		# als er een veld modified voorkomt in een tabel zet er dan een tiemstamp in
-		#
-		if(in_array("modified",$this->columns($args["table"])))
-		{
-			$date = date("Y-m-d H:i:s");
-			$args["fields"] += array("modified"=>$date);
-		}
-		$result = $wpdb->update($wptable, $args["fields"], $args["where"]);
-		$result=1;
 		return($result);
 	}
 	# $args['table'] - databasetable

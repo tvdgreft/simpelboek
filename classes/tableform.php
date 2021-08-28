@@ -149,7 +149,6 @@ class Tableform
 		#
 		$html .= '<div class="row">';
 		$html .= '<div class="col-md-6")>';
-		$html .= __( 'TOTAAL AANTAL RECORDS', 'prana' ) . ':' . $NumberOfRecords . '&nbsp' . __( 'AANTAL PAGINAS', 'prana' ) . ':' . $pages;
 		$html .= '</div>';
 		if(isset($this->filtercolumns) && count($this->filtercolumns))
 		{
@@ -265,8 +264,8 @@ class Tableform
 		#
 		# buttons for next and previous page
 		#
-		$html .= sprintf( __( 'bladeren', 'prana' ),$this->onpage,$pages);
-		$html .= '&nbsp;&nbsp;&nbsp;';
+		$html .= __( 'TOTAAL AANTAL RECORDS', 'prana' ) . ':' . $NumberOfRecords . '&nbsp' . __( 'AANTAL PAGINA\'S', 'prana' ) . ':' . $pages;
+		if($pages) { $html .= sprintf( __( ' bladeren: ', 'prana' ),$this->onpage,$pages); }
 		if($this->onpage > 1) { $html .= '<button type="submit" class="btn btn-link btn-sx" name="previouspage" value="' . $this->onpage . '"><i class="fa fa-caret-square-o-left" style="font-size:24px"></i></button>'; }
 		if($this->onpage < $pages) { $html .= '<button type="submit" class="btn btn-link btn-sx" name="nextpage" value="' . $this->onpage . '"><i class="fa fa-caret-square-o-right" style="font-size:24px"></i></button>'; }
 		$html .= '<div style="float:right" class="row">';

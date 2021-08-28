@@ -52,7 +52,7 @@ class Overzicht
         {
             $beginbalans = $dbio->ReadRecords(array("table"=>$table_balans,"prefilter"=>array("boekjaar"=>$boekjaar-1,"rekeningnummer"=>$p->rekeningnummer)));
             if($beginbalans == NULL) { $balans[$p->rekeningnummer] = 0;}
-            else { $balans[$p->rekeningnummer] = $beginbalans[0]->bedrag; }
+            else { $balans[$p->rekeningnummer] = (int)$beginbalans[0]->bedrag; }
             foreach ($boekingen as $b)
             {
                 $bedrag = $this->PlusOrMin($b->type,$p->rekeningnummer,$b->rekening,$b->tegenrekening,$p->soort,$p->type,$b->bedrag);

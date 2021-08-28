@@ -97,6 +97,16 @@ class Bootstrap
 			require_once $file;
 		}
 	}
+	/**
+	 * Start session
+	 */
+	function register_my_session()
+	{
+  		if( !session_id() )
+ 		{
+   			 session_start();
+  		}
+	}
 	public function init()
 	{
 		$self = new self();
@@ -114,6 +124,8 @@ class Bootstrap
 		else 
 		{
 			add_action( 'admin_notices', array($this,'requirements_error') ); # error message 
+			add_action('init', 'register_my_session');
+
 		}
 	}
 }

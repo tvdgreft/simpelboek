@@ -28,7 +28,7 @@ class Beginbalans
         # wat is het huidige boekjaar?
         #
         $boekhouding = $dbio->ReadUniqueRecord(array("table"=>Dbtables::boekhoudingen['name'],"key"=>"code","value"=>$_SESSION['code']));
-        $boekjaar = $boekhouding->boekjaar;
+        $boekjaar = $boekhouding->boekjaar-1;
         $this->table = Dbtables::balans['name']."_".$_SESSION['code'];
         $html = '';
         $html .= '<h2>'. __("Opstellen beginbalans","prana") . '  ' . __("boekjaar","prana") . '=' . $boekjaar . '</h2>';
@@ -82,7 +82,7 @@ class Beginbalans
     {
         $dbio = new DBIO();
         $boekhouding = $dbio->ReadUniqueRecord(array("table"=>Dbtables::boekhoudingen['name'],"key"=>"code","value"=>$_SESSION['code']));
-        $boekjaar = $boekhouding->boekjaar;
+        $boekjaar = $boekhouding->boekjaar-1;
         $html = '';
         $html .= '<h1>' . __('begin balans wordt aangemaakt voor het jaar: ','prana') . $boekjaar . '</h1>';
         #

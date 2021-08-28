@@ -18,6 +18,10 @@ class Main
 	function init($args)
 	{
 		global $wp;
+		$dbio = new Dbio();
+		$form = new Forms();
+		$menu = new Menu();
+
 		$bootstrap = new bootstrap();
 		$scripts=new Scripts();
 		$self = new self();
@@ -31,28 +35,32 @@ class Main
 		# treat arguments
 		#
 		$this->single = isset($args["single"]) ? $args["single"] : "";
+		if(isset($args['single']))
+		{
+			$_POST['single'] = $this->single;
+			$boekhouding = $dbio->ReadUniqueRecord(array("table"=>Dbtables::boekhoudingen['name'],"key"=>"code","value"=>$_POST['single']));
+			if(!$boekhouding)
+			{
+				$html .= '<h1>' . __( 'Boekhouding', 'prana' ) . ' ' . $_POST['single'] . __( ' bestaat niet', 'prana' ).'</h1>';
+				return($html);
+			}
+
+		}
 		#
 		# create init table if not exists
 		#
-		$dbio = new Dbio();
-		$form = new Forms();
 		$result = $dbio->CreateTable(Dbtables::boekhoudingen['name'],Dbtables::boekhoudingen['columns']);
 		if($result) { return($result); }
-		#
-		# Toon het menu
-		#
-		#
-		# test nieuw menu
-		###########################################################
 		$menu = new Menu;
 		$html .= '<div class="prana-display">';
+		$html .= '<center><h1>' . __('SIMPELBOEK BOEKHOUDING','prana') . '</h1></center>';
 		$manual = 'manual';
 		$part = '';
 		if(isset($_POST['menu'] )) { $part = $_POST['menu']; }
 		elseif(isset($_GET['menu'] )) { $part=$_GET['menu']; }
 		if($main = $menu->MainMenu($part)) { $part = $main; }
-		$html .= SBK_HelpModal($manual,$part,'Overzicht boekhoudingen');
 		$html .= $menu->start();
+		$html .= SBK_HelpModal($manual,$part);	#popup help voor gekozen menu
 		# toon welke boekhouding geopend is
 		if(isset($_SESSION['code'])) 
 		{ 
@@ -89,51 +97,8 @@ class Main
 		$html .= '<hr>';
 		$html .= '</div>';
 		return($html);
-		###################################################################
-		#$html .= '<div class="prana-display">';
-		#$html .='<form action=' . $this->action . ' method="post" enctype="multipart/form-data" onSubmit="return ValForm()">';
-		#$html .='<form action=' . $this->action . ' method="post">';
-		#$html .= $this->Menu();
-		#$html .= '<div class="prana-display">';
-		##############################################
-		# Plugin restarted after prsseing a button
-		# so perform the function which should be started
-		# That is the case if a post value exists as a class
-		# ##########################################
-		# toon welke boekhouding geopend is
-		if(isset($_SESSION['code'])) 
-		{ 
-			$boekhouding = $dbio->ReadUniqueRecord(array("table"=>Dbtables::boekhoudingen['name'],"key"=>"code","value"=>$_SESSION['code']));
-			$html .= '<h1>' . __( 'Boekhouding', 'prana' ) . ' ' . $boekhouding->naam . __( ' is geopend, boekjaar is:', 'prana' ). $boekhouding->boekjaar . '</h1>';
-		}
-		if(!isset($_POST['cancel']))
-		{
-			foreach ($_POST as $key => $value)
-			{
-				#echo "<br>key=" . $key;
-				$class = Bootstrap::NameSpace() . '\\' . $key;
-				#echo "<br>class=" . $class;
-				if($classfile=Bootstrap::ClassFile($key)) 
-				{ 
-					#echo "<br>classfile:".$classfile;
-					$run = new $class;
-					$html .= $run->Start(); 
-					break;					# zorgt er voor dat een eerder gestarte class opnieuw wordt gestart
-				}
-			}
-		}
-		/* uittesten forms.php
-		$html .= $form->Date(array("label"=>__( 'boekdatum', 'prana' ), "id"=>"datum", "value"=>"", "width"=>"300px;"));
-		$html .= $form->Text(array("label"=>__( 'emailtest', 'prana' ), "popover"=>"email invullen","collabel"=>"col-md-2","id"=>"emailtest", "value"=>'tvdgreft@pranamas.nl', "checkclass"=>"checkemail","required"=>FALSE,"error"=>"emailadres onjuist"));
-		$html .= $form->Text(array("label"=>__( 'emailtest', 'prana' ), "id"=>"emailtest", "value"=>'tvdgreft@pranamas.nl', "checkclass"=>"checkemail","required"=>FALSE,"error"=>"emailadres onjuist"));
-		$html .= $form->Text(array("label"=>__( 'emailtest', 'prana' ), "placeholder"=>"email@server.xx","id"=>"emailtest","checkclass"=>"checkemail" , "width"=>"300px","required"=>FALSE,"error"=>"emailadres onjuist","height"=>"50px"));
-		$html .= $form->Text(array("label"=>__( 'Bankrekening', 'prana' ), "id"=>"bankrekening", "value"=>$this->fields['bankrekening'], "check"=>"checkbankrekening" , "width"=>"300px;","required"=>FALSE,"error"=>"bankrekening onjuist"));
-		 */
-		$html .= '</form>';
-		$html .= '<hr>';
-		$html .= '</div>';
-		return($html);
 	}
+	/*
 	public function Menu()
 	{
 		$html = '';
@@ -174,6 +139,7 @@ class Main
 		$html .= '</div>';
 		return($html);
 	}
+	*/
 	/*
 	public function Start()
 	{
