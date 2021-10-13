@@ -35,3 +35,17 @@ Deze kan worden ingeladen bij het invoeren van een rekeningschema. (menuoptie re
 Het bestand staat in de map data.
 Het is mogelijk een afwijkend voorbeeldbestand aan te maken in dezelfde map onder een andere naam.
 Deze naam moet dan wel worden ingevulkd bij: 'bestand rekeningschema'
+
+## database conversie oudere versies
+Om een boekhouding die in een oudere versie is aangemaakt naar deze versie over te zetten moeten de volgende stappen worden ondernomen:
+Maak een nieuwe boekhouding aan.
+Verwijder de volgende tabellen: {prefix}_sbh_*_{code}  {code} = databankcode
+Download de volgende tabellen in een sql bestand:
+{prefix}_simpelboek_{code}_*        {prefix} = database perefix {code} = naam van de boekhouding.   * kan alles zijn
+Wijzig de bestandsnamen als volgt:
+{prefix}_simpelboek_{code}_rekeningen wordt {prefix nieuwe database }_sbh_rekeningen_{code}
+{prefix}_simpelboek_{code}_begroting wordt {prefix nieuwe database }_sbh_begroting_{code}
+{prefix}_simpelboek_{code}_balans wordt {prefix nieuwe database }_sbh_balans_{code}
+{prefix}_simpelboek_{code}_boeking wordt {prefix nieuwe database }_sbh_boekingen_{code}
+
+Voeg een veld modified in (datetime) na id in tabel {prefix nieuwe database }_sbh_boekingen_{code}

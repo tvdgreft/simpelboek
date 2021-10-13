@@ -53,7 +53,7 @@ class BoekMutaties
 		$options .= '<option value="" selected>' . __('selecteer tegenrekening','prana') . '</option>';
         foreach ($rekeningen as $r)
         {
-            $naam = sprintf("%03d %s %s %s",$r->rekeningnummer,$r->soort,$r->type,$r->naam);
+            $naam = sprintf("%s %03d %s %s",$r->naam,$r->rekeningnummer,$r->soort,$r->type);
             $options .= '<option value=' . $r->rekeningnummer . '>' . $naam . '</option>';
         }
         $html .= '<table id="boekingen" class="prana">';

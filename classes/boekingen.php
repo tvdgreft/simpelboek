@@ -18,12 +18,13 @@ class Boekingen extends Tableform
         $this->columns= [
                                 ["id","id","string"],         #table column name, columnname to be displayed, display orientation
                                 ["datum","datum","date"],
+                                ["omschrijving","omschrijving","string"],
                                 ["bedrag","bedrag","euro"],
                                 ["btw","btw","euro"],
                                 ["type","type","stringright"],
                                 ["rekening","rekening","stringright"],
                                 ["tegenrekening","tegenrekening","stringright"]];
-		$this->filtercolumns = array("datum"=>"datum","bedrag"=>"bedrag","rekening"=>"rekening");
+		$this->filtercolumns = array("datum"=>"datum","bedrag"=>"bedrag","rekening"=>"rekening","tegenrekening"=>"tegenrekening");
         $this->permissions = ["vw","cr","md","dl"];
         $this->maxlines=20;
 		$this->uid="id";	#the unique key
@@ -74,6 +75,7 @@ class Boekingen extends Tableform
         $html .= $form->TextArea(array("label"=>__( 'omschrijving', 'prana' ), "id"=>"omschrijving", "value"=>$this->fields['omschrijving'], "width"=>"300px","heigth"=>"150px","required"=>FALSE));
         $form->buttons = [
                             ['id'=>'writerecord','value'=>__( 'opslaan', 'prana' ), "onclick"=>"buttonclicked='boeking'"],
+                            ['id'=>'writerecordandnext','value'=>__( 'opslaan en nieuwe boeking', 'prana' ), "onclick"=>"buttonclicked='boeking'"],
                             ['id'=>'cancel','value'=>__( 'annuleren', 'prana' ),"status"=>"formnovalidate","onclick"=>"buttonclicked='cancel'"]
                         ];
 		$html .= $form->DisplayButtons();

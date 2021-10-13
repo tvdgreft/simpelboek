@@ -65,7 +65,7 @@ class Main
 		if(isset($_SESSION['code'])) 
 		{ 
 			$boekhouding = $dbio->ReadUniqueRecord(array("table"=>Dbtables::boekhoudingen['name'],"key"=>"code","value"=>$_SESSION['code']));
-			$html .= '<h1>' . __( 'Boekhouding', 'prana' ) . ' ' . $boekhouding->naam . __( ' is geopend, boekjaar is:', 'prana' ). $boekhouding->boekjaar . '</h1>';
+			$html .= '<h1>' . __( 'Boekhouding', 'prana' ) . ' ' . $boekhouding->naam . __( ' is geopend, boekjaar is: ', 'prana' ). $boekhouding->boekjaar . '</h1>';
 		}
 		$html .='<form action=' . $this->action . ' method="post" enctype="multipart/form-data" onSubmit="return ValForm()">';
 		if(isset($_GET['menu']))

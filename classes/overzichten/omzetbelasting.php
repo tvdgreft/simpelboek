@@ -22,7 +22,7 @@ class Omzetbelasting extends Overzichten
 		$html .= '<h2>BTW overzichten_' . $_SESSION['code'] . '</h2>';
 		$html .= $form->date(array("label"=>__( 'vanaf', 'prana' ), "id"=>"from","width"=>"150px"));
 		$html .= $form->date(array("label"=>__( 'tot en met', 'prana' ), "id"=>"till","width"=>"150px"));
-		$html .= '<input id="btw" name="btw" value="btw" type="hidden" />';
+		$html .= '<input id="omzetbelasting" name="omzetbelasting" value="omzetbelasting" type="hidden" />';
 		$form->buttons = [
 			['id'=>'btwoverzichten','value'=>__( 'btw overzichten', 'prana' )],
 			['id'=>'cancel','value'=>__( 'terug', 'prana' ),"status"=>"formnovalidate","onclick"=>"buttonclicked='cancel'"]
@@ -70,7 +70,7 @@ class Omzetbelasting extends Overzichten
 		);
 		$html .= $this->DisplayTabel($tabel,$colinfo);
 		$html .= '<span style="display:none">'.$filename.'</span>';				#filename voor export script
-		$html .= '<input id="btw" name="btw" value="btw" type="hidden" />';
+		$html .= '<input id="omzetbelasting" name="omzetbelasting" value="omzetbelasting" type="hidden" />';
 		$form->buttons = [
 			['id'=>'exporttable','class'=>'exporttable' ,'value'=>__( 'exporteren', 'prana' )],	#knop voor het exporteren van de table (exportcsv.js)
 			['id'=>'cancel','value'=>__( 'terug', 'prana' ),"status"=>"formnovalidate","onclick"=>"buttonclicked='cancel'"]

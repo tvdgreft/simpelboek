@@ -57,6 +57,7 @@ class Mutaties
 
         $html = '';
         if($_POST['bank'] == "triodos") { $mutaties=$this->Triodos(); }
+        if($_POST['bank'] == "ing") { $mutaties=$this->Ing(); }
         #
         # test of de mutaties kloppen
         #
@@ -88,6 +89,8 @@ class Mutaties
             foreach ($mutaties as $m)
             {
                 $fields = $m;
+                $rekening = $dbio->ReadUniqueRecord(array("table"=>Dbtables::rekeningen['name']."_".$_SESSION['code'],"key"=>"bankrekening",'value'=>$m['banknr']));
+                $fields += ["rekening"=>$rekening->rekeningnummer];
                 unset ($fields["banknr"]); # zit niet in boekingrecord
                 $r = $dbio->ReadRecords(array("table"=>$table_boekingen,"filters"=>$fields));
                 if(count($r) > 0)
@@ -103,7 +106,6 @@ class Mutaties
                 return($html);
             }
         }
-        return;
         #
         # boekingen in database opslaan
         #
@@ -145,11 +147,53 @@ class Mutaties
             if($m[3] == "Debet") { $type="D"; }
             if($m[3] == "Credit") { $type = "C"; }
             $mutatie += ["type"=>$type];
-            $b = preg_split("/ /",$m[5]);
-			$bankrekening = $b[1];
-            $mutatie += ["bankrekening"=>$b[1]];
+            # bankrekening kan soms niet ingevuld zijn.
+            if($m[5])
+            {
+                $b = preg_split("/ /",$m[5]);
+                $mutatie += ["bankrekening"=>$b[1]];
+            }
+            else
+            {
+                $mutatie += ["bankrekening"=>""];
+            }
             $mutatie += ["bankrekeninghouder" => $m[4]];
             $mutatie += ["omschrijving"=>$m[7]];
+            $mutaties[] = $mutatie;
+            #echo "<br>".$line.'<br>mutatie<br>';
+            #print_r($mutatie);
+        }
+        return($mutaties);
+    }
+    /**
+     * Lees de ING mutaties
+     * en zet ze in een array met mutaties
+     * een mutatie bestaat uit de volgende elementen:
+     * datum (y-m-d)
+     * 
+     */
+    function Ing()
+    {
+        $mutaties = array();
+        $fp = fopen($_FILES['bestand']["tmp_name"],"rb");
+		while(($line=fgets($fp)) !== false)
+		{
+            #echo "<br>".$line;
+            $m=str_getcsv($line);
+            if($m[0] == "Datum") { continue; }
+            $mutatie = array();
+            $mutatie += ["banknr"=>$m[2]];
+            $mutatie += ["datum"=>date_format(date_create($m[0]),"Y-m-d")];
+			$bedrag = str_replace(',','', $m[6]);  // bedrag in centen
+			$bedrag = str_replace('.','', $bedrag);  # . voor duizendtallen verwijderen
+            $mutatie += ["bedrag"=>$bedrag];
+            $type = "";
+            if($m[5] == "Bij") { $type="C"; }
+            if($m[5] == "Af") { $type = "D"; }
+            $mutatie += ["type"=>$type];
+            $mutatie += ["bankrekening"=>$m[3]];
+            $mutatie += ["bankrekeninghouder" => $m[1]];
+            $mutatie += ["omschrijving"=>$m[8]];
             $mutaties[] = $mutatie;
             #echo "<br>".$line.'<br>mutatie<br>';
             #print_r($mutatie);

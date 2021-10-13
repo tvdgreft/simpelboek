@@ -92,6 +92,15 @@ class Tableform
             $html .='<input id="' . $this->class . '" name="' . $this->class . '" type="hidden" />';
             return($html);
         }
+		#
+        # write record to database and ask for next record to create
+        #
+        if(isset($_POST['writerecordandnext'])) 
+        { 
+            $html .= $this->WriteRecord();
+			$html .= $this->CreateRecord(); # function in tableform.php
+            return($html);
+        }
         if(isset($_POST['deleterecord'])) 
         { 
             $html .= $this->DeleteRecord();
