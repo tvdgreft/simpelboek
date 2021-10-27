@@ -24,7 +24,7 @@ class Boekingen extends Tableform
                                 ["type","type","stringright"],
                                 ["rekening","rekening","stringright"],
                                 ["tegenrekening","tegenrekening","stringright"]];
-		$this->filtercolumns = array("datum"=>"datum","bedrag"=>"bedrag","rekening"=>"rekening","tegenrekening"=>"tegenrekening");
+		$this->filtercolumns = array("id"=>"id","datum"=>"datum","bedrag"=>"bedrag","rekening"=>"rekening","tegenrekening"=>"tegenrekening");
         $this->permissions = ["vw","cr","md","dl"];
         $this->maxlines=20;
 		$this->uid="id";	#the unique key
@@ -81,6 +81,7 @@ class Boekingen extends Tableform
 		$html .= $form->DisplayButtons();
         $html .='<input id="crmod" name="crmod" value="' . $crmod . '" type="hidden" />';
         $html .='<input id="boekingen" name="boekingen" type="hidden" />';
+        $html .= $this->SetPosts();
         return($html);
     }
 }

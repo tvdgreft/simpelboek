@@ -77,7 +77,10 @@ class Main
 				$html .= $run->Start();
 			}
 		}
-		if(!isset($_POST['cancel']))
+		/*
+			Ga terug naar functie zolang er geen back is gegeven
+		*/
+		if(!isset($_POST['back']))
 		{
 			foreach ($_POST as $key => $value)
 			{

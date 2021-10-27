@@ -300,17 +300,7 @@ class Tableform
 		#
 		# set post values
 		#
-		$html .='<input id="onpage" name="onpage" type="hidden" value=' . $this->onpage .  ' />';	#current page
-		$html .='<input id="onsort" name="onsort" type="hidden" value=' . $this->onsort .  ' />';	#current sort column
-		$html .='<input id="sortorder" name="sortorder" type="hidden" value=' . $this->sortorder .  ' />';	#current sort column
-		#
-        # geef huidige filters door een POST values om ze weer terug te kunnen krijgen bij volgende klik
-        #
-        $html .='<input id="filters" name="filters" type="hidden" value=' . urlencode(json_encode($this->filters)) .  ' />';
-        #
-        # zorg ervoor dat class rekeningen weer wordt gestart als er ergens op geklikt is
-        #
-        $html .='<input id="filters" name="filters" type="hidden" value=' . urlencode(json_encode($this->filters)) .  ' />';
+		$html .= $this->SetPosts();
 		return($html);
 	}
 	public function CreateRecord()
@@ -435,6 +425,25 @@ class Tableform
 		$export .= '<button class="pbtnok exporttable">export</button>';   #javascript export.js does the rest
 		#$export .= '</div>';
 		return($export);
+	}
+	public function SetPosts()
+	{
+		#
+		# set post values
+		#
+		$html = '';
+		$html .='<input id="onpage" name="onpage" type="hidden" value=' . $this->onpage .  ' />';	#current page
+		$html .='<input id="onsort" name="onsort" type="hidden" value=' . $this->onsort .  ' />';	#current sort column
+		$html .='<input id="sortorder" name="sortorder" type="hidden" value=' . $this->sortorder .  ' />';	#current sort column
+		#
+        # geef huidige filters door een POST values om ze weer terug te kunnen krijgen bij volgende klik
+        #
+        $html .='<input id="filters" name="filters" type="hidden" value=' . urlencode(json_encode($this->filters)) .  ' />';
+        #
+        # zorg ervoor dat class rekeningen weer wordt gestart als er ergens op geklikt is
+        #
+        $html .='<input id="filters" name="filters" type="hidden" value=' . urlencode(json_encode($this->filters)) .  ' />';
+		return($html);
 	}
 }
 ?>

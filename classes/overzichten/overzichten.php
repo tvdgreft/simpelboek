@@ -40,7 +40,7 @@ class Overzichten
 		$this->table_begroting = Dbtables::begroting['name']."_".$_SESSION['code'];
         $this->begroting = $dbio->ReadRecords(array("table"=>$this->table_begroting,"prefilter"=>array("boekjaar"=>$this->boekjaar)));
     }
-    
+    /*
 	function DisplayTable(array $table) : string
 	{
 		$html='';
@@ -66,6 +66,7 @@ class Overzichten
 		$html .= '</table>';
 		return($html);
 	}
+	*/
 	/**
 	 * DisplayTabel
 	 * converteert tabel naar HTML output
@@ -76,6 +77,7 @@ class Overzichten
 	function DisplayTabel(array $table,array $headers) : string
 	{
 		$html='';
+		#print_r($table);
 		$rows = count($table);
 		$cols = count($headers);
 		$html .= '<table class="compacttable">';
@@ -87,7 +89,7 @@ class Overzichten
 			if($type == "number" || $type == "euro") {$thclass = "compactthright"; }	// getallen rechts aansluiten
 			$html .= '<th class="' . $thclass . '">' . $headers[$col][0] . '</th>';
 		}
-		for($row=1; $row<=$rows; $row++)
+		for($row=0; $row<$rows; $row++)
 		{
 				$html .= '<tr class="compacttr">';
 				for ($col=0; $col <$cols; $col++)

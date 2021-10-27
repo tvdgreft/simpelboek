@@ -134,14 +134,15 @@ class Omzetbelasting extends Overzichten
 		# omzetbelasting
 		#
 		$btwoverzicht = array();
-		$btwoverzicht[] = array('voorheffing','rkn','naam','datum','bedrag incl btw'.'voorheffing');
 		$totaalbedrag=$totaalbtw=0;
 		foreach ($this->periodboekingen as $b)
 		{	
+			echo '<br>';
+			#print_r($b);
 			if($b->btw)
 			{
 				$bedrag=$b->bedrag;
-				$btw= $b->btw;;
+				$btw= $b->btw;
 				$totaalbedrag += $bedrag;
 				$totaalbtw += $btw;
 				$btwoverzicht[] = array($b->id,$b->tegenrekening,$b->omschrijving,$b->datum,$bedrag,$btw);

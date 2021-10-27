@@ -14,7 +14,15 @@ Wat Simpelboek niet kan:
 * beheer facturen
 
 ## hoe installeren
-Simpelboek kan op wordpress worden geinstalleerd als een plugin.  
+Simpelboek kan op wordpress worden geinstalleerd als een plugin. 
+Deze plugin installeren gaat als volgt:
+Ga naar https://github.com/tvdgreft/simpelboek
+klik op de knop Code en vervolgens op Download ZIP.
+Bestand opslaan op pc
+In wordpress website inloggen als administrator.
+Ga naar: plugins - nieuwe plugin
+plugin uploaden. Bestand kiezen die net is opgeslagen vanuit github.
+Tenslotte de plugin activeren.
 Vervolgens een pagina aanmaken met de volgende tekst: [simpelboek].  
 Deze pagina aan een menu hangen en start de pagina.  
 De plugin is getest met GeneralPress als thema. 

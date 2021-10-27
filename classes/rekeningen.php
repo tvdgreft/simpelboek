@@ -61,6 +61,7 @@ class Rekeningen extends Tableform
 		$html .= $form->DisplayButtons();
         $html .='<input id="crmod" name="crmod" value="' . $crmod . '" type="hidden" />';
         $html .='<input id="rekeningen" name="rekeningen" type="hidden" />';
+        $html .= $this->SetPosts();
         return($html);
     }
     #

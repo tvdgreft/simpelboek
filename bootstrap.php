@@ -42,6 +42,7 @@ class Bootstrap
 		define ( 'SBK_DATA_DIR', SBK_PLUGIN_DIR . 'data/' );
 		define ( 'SBK_DOC_DIR', SBK_PLUGIN_DIR . 'doc/' );
 		define ( 'SBK_FUNCTIONS_DIR', SBK_PLUGIN_DIR . 'functions/' );
+		define ( 'SBK_PLUGIN_DIRNAME' , str_replace( '/' . basename( __FILE__ ), "", plugin_basename(__FILE__) ) );
 	}
 
 /**

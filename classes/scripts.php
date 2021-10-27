@@ -10,9 +10,9 @@ class Scripts
 	{
 		$html = '';
 		#$self = new self();
-		$cssurl = WP_PLUGIN_URL .'/' . bootstrap::PLUGINNAME . '/css/';
-		$jsurl = WP_PLUGIN_URL .'/' . bootstrap::PLUGINNAME . '/javascript/';
-		$menuurl = WP_PLUGIN_URL .'/' . bootstrap::PLUGINNAME . '/vendor/clicky-menus/';
+		$cssurl = WP_PLUGIN_URL .'/' . SBK_PLUGIN_DIRNAME . '/css/';
+		$jsurl = WP_PLUGIN_URL .'/' . SBK_PLUGIN_DIRNAME . '/javascript/';
+		$menuurl = WP_PLUGIN_URL .'/' . SBK_PLUGIN_DIRNAME . '/vendor/clicky-menus/';
 		$html .= '<meta charset="utf-8">';
   		$html .= '<meta name="viewport" content="width=device-width, initial-scale=1">';
 		$html .= '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">';
