@@ -118,6 +118,7 @@ class Bootstrap
 		$options = new options();
 		if ( $this->requirements() ) 
 		{
+			add_action('init', array($this,'register_my_session'));	# start a PHP session to use $_SESSION variables
 			# set shortcode, so plugin can be started in an article like: [maintaindbtable .... ]
 			add_shortcode( $self::SHORTCODE, array($main ,'init') );
 			$options->init();		#make parameters form
@@ -125,8 +126,6 @@ class Bootstrap
 		else 
 		{
 			add_action( 'admin_notices', array($this,'requirements_error') ); # error message 
-			add_action('init', 'register_my_session');
-
 		}
 	}
 }
