@@ -137,6 +137,7 @@ class Mutaties
 		{
             #echo "<br>".$line;
             $m=str_getcsv($line);
+            #print_r($m);
             $mutatie = array();
             $mutatie += ["banknr"=>$m[1]];
             $mutatie += ["datum"=>date_format(date_create($m[0]),"Y-m-d")];
@@ -158,7 +159,8 @@ class Mutaties
                 $mutatie += ["bankrekening"=>""];
             }
             $mutatie += ["bankrekeninghouder" => $m[4]];
-            $mutatie += ["omschrijving"=>$m[7]];
+            $omschrijving = str_replace("\"","",$m[7]); #verwijder de quotes 
+            $mutatie += ["omschrijving"=>$omschrijving];
             $mutaties[] = $mutatie;
             #echo "<br>".$line.'<br>mutatie<br>';
             #print_r($mutatie);

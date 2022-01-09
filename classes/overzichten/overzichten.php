@@ -40,40 +40,7 @@ class Overzichten
 		$this->table_begroting = Dbtables::begroting['name']."_".$_SESSION['code'];
         $this->begroting = $dbio->ReadRecords(array("table"=>$this->table_begroting,"prefilter"=>array("boekjaar"=>$this->boekjaar)));
     }
-    /*
-	function DisplayTable(array $table) : string
-	{
-		$html='';
-		$rows = count($table);
-		$cols = count($table[0]);
-		$html .= '<table class="prana">';
-		$html .= '<tr class="compacttr">';
-		for ($col=0; $col < $cols; $col++)
-		{
-			if(!isset($table[0][$col])) { $table[0][$col] = ''; }
-			$html .= '<th class="compactth">' . $table[0][$col] . '</th>';
-		}
-		$tdclass = "compacttdeven";
-		for($row=1; $row<=$rows; $row++)
-		{
-				$html .= '<tr class="compacttr">';
-				for ($col=0; $col <$cols; $col++)
-				{
-					if(!isset($table[$row][$col])) { $table[$row][$col] = ''; }
-					$html .= '<td class="' . $tdclass . '">' . $table[$row][$col] . '</td>';
-				}
-		}
-		$html .= '</table>';
-		return($html);
-	}
-	*/
-	/**
-	 * DisplayTabel
-	 * converteert tabel naar HTML output
-	 * table{row][col]
-	 * headers[01,....] = header kolom
-	 * headers[0,01......] type: string, date, number, euro (eurocents)
-	 */
+    
 	function DisplayTabel(array $table,array $headers) : string
 	{
 		$html='';
@@ -124,37 +91,3 @@ class Overzichten
         return($html);
     }
 }
-/*
-#
-    # Print de balans
-    #
-    function PrintTabel(array $table,array $headers) : string
-    {
-        $html = '';
-        $html .= '<table class="compacttable">';
-		$html .= '<tr class="compacttr">';
-        $cols = count($headers);
-        $midcol = $cols/2;
-        // koppen van tabel maken
-		for ($col=0; $col < $cols; $col++)
-		{
-			if($headers[$col][1] == "right") { $html .= '<th class="compactthright">' . $headers[$col][0] . '</th>'; }
-			else { $html .= '<th class="compactth">' . $headers[$col][0]. '</th>'; }
-			if($col == $midcol-1) { $html .= '<th class="compactth">&nbsp;&nbsp;</th>'; }
-		}
-		for($row=1; $row<=count($table); $row++)
-		{
-				$html .= '<tr class="compacttr">';
-				for ($col=0; $col < $cols; $col++)
-				{
-					if(!isset($table[$row][$col])) { $table[$row][$col] = ''; }
-                    // bedragen rechts aansluiten in in euro notatie
-					if($headers[$col][1] == "right") { $html .= '<td class="compacttdright">' . $this->Euro($table[$row][$col]) . '</td>'; }
-					else { $html .= '<td class="compacttd">' . $table[$row][$col] . '</td>'; }
-					if($col == $midcol-1) { $html .= '<td class="compacttd">&nbsp;&nbsp;</td>'; }
-				}
-				$html .= '</tr>';
-		}
-		$html .= '</table>';
-        return($html);
-*/
