@@ -57,7 +57,7 @@ class Overzichten
 			if($type == "number" || $type == "euro") {$thclass = "compactthright"; }	// getallen rechts aansluiten
 			$html .= '<th class="' . $thclass . '">' . $headers[$col][0] . '</th>';
 		}
-		for($row=1; $row<=$rows; $row++)
+		for($row=0; $row<=$rows; $row++)
 		{
 				$html .= '<tr class="compacttr">';
 				for ($col=0; $col <$cols; $col++)
