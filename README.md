@@ -1,4 +1,5 @@
 # SIMPELBOEK
+## dit is de plugin voor wordpress
 ## wat het wel en niet kan
 Simpelboek is een eenvoudig boekhoudprogramma voor verenigingen en stichtingen.
 Simpelboek bevat de volgende functionaliteit:
